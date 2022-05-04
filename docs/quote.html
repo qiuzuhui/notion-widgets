@@ -8,51 +8,21 @@
     <style>
         .container{
             position:relative;
-            width:1200px;
-            height:250px;
             border-radius:4px;
-            margin-right:auto;
-            margin-left:auto;
-            margin-top:25vh;
             font-size:18px;
             color:#ffffff;
             font-family:"";
             font-weight:light;
             background:rgba(0,0,0,0.6);
+            padding: 60px 60px 40px;
 
-        }
-        button{
-            position:absolute;
-            bottom:20px;
-            right:200px;
-            width:120px;
-            height:40px;
-            margin-right:auto;
-            margin-left:auto;
-            dispaly:block;
-        }
-        .btn-primary{
-            right:50px;
-        }
-        .btn{
-            background:none;
-        }
-
-        .word-content{
-            margin-top:40px;
-        }
-        p{
-            width:90%;
-            margin-right:auto;
-            margin-left:auto;
-            display:block;
         }
         .content{
-            margin-top:50px;
-
+            display:block;
         }
-        a{
-            float:right;
+        .author{
+            margin-top: 10px;
+            text-align: right;
             display:block;
             font-size:14px;
             text-decoration:none;
@@ -71,16 +41,8 @@
 
 
 <div class="container">
-
-    <p  class="content ">
-        此处为格言
-    <p><a class="author">
-        &nbsp;此处为出处</a></p>
-
-    <button class="btn btn-success "  >下一个</button>
-    <button class="btn btn-primary "   >微博分享</button>
-    <a></a>
-
+    <div class="content ">此处为格言</div>
+    <div class="author">此处为出处</div>
 </div>
 <script>
     $(document).ready(function(){
@@ -90,10 +52,8 @@
             $.getJSON("https://v1.hitokoto.cn/?c=b",function(json){
                 content = json["hitokoto"];
                 author = json["from"];
-                id = json["id"];
                 $(".content").html(content);
                 $(".author").html("——&nbsp;"+ author);
-                $(".author").attr("href",id);
             });
         }
         //打开页面或刷新运行一次随机格言
@@ -103,14 +63,6 @@
         $(".btn-success").on("click",function(){
             getQuote();
         });
-
-        //调用weibo
-        $(".btn-primary").on("click",
-            function(event) {
-                event.preventDefault();
-                window.open('http://v.t.sina.com.cn/share/share.php?title=' + encodeURIComponent(content + ' by ' + author));
-            })
-
 
     });
 </script>
