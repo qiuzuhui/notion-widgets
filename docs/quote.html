@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .container{
+            position:relative;
+            width:1200px;
+            height:250px;
+            border-radius:4px;
+            margin-right:auto;
+            margin-left:auto;
+            margin-top:25vh;
+            font-size:18px;
+            color:#ffffff;
+            font-family:"";
+            font-weight:light;
+            background:rgba(0,0,0,0.6);
+
+        }
+        button{
+            position:absolute;
+            bottom:20px;
+            right:200px;
+            width:120px;
+            height:40px;
+            margin-right:auto;
+            margin-left:auto;
+            dispaly:block;
+        }
+        .btn-primary{
+            right:50px;
+        }
+        .btn{
+            background:none;
+        }
+
+        .word-content{
+            margin-top:40px;
+        }
+        p{
+            width:90%;
+            margin-right:auto;
+            margin-left:auto;
+            display:block;
+        }
+        .content{
+            margin-top:50px;
+
+        }
+        a{
+            float:right;
+            display:block;
+            font-size:14px;
+            text-decoration:none;
+            color:#EFEFEF;
+        }
+        body{
+
+            background-image:url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541677709433&di=faaba28b461070ab444dec87169378f9&imgtype=0&src=http%3A%2F%2Fattachments.gfan.com%2Fforum%2Fattachments2%2F201408%2F25%2F204458263drrnzlpodz2xn.jpg");
+            background-repeat:no-repeat;
+        }
+    </style>
+    <script type="text/javascript" src="http://cdn.webfont.youziku.com/wwwroot/js/wf/youziku.api.min.js"></script>
+
+</head>
+<body>
+
+
+<div class="container">
+
+    <p  class="content ">
+        此处为格言
+    <p><a class="author">
+        &nbsp;此处为出处</a></p>
+
+    <button class="btn btn-success "  >下一个</button>
+    <button class="btn btn-primary "   >微博分享</button>
+    <a></a>
+
+</div>
+<script>
+    $(document).ready(function(){
+        var content="";
+        var author="";
+        var getQuote = function(){
+            $.getJSON("https://v1.hitokoto.cn/?c=b",function(json){
+                content = json["hitokoto"];
+                author = json["from"];
+                id = json["id"];
+                $(".content").html(content);
+                $(".author").html("——&nbsp;"+ author);
+                $(".author").attr("href",id);
+            });
+        }
+        //打开页面或刷新运行一次随机格言
+        getQuote();
+
+        //调用一言api
+        $(".btn-success").on("click",function(){
+            getQuote();
+        });
+
+        //调用weibo
+        $(".btn-primary").on("click",
+            function(event) {
+                event.preventDefault();
+                window.open('http://v.t.sina.com.cn/share/share.php?title=' + encodeURIComponent(content + ' by ' + author));
+            })
+
+
+    });
+</script>
+</body>
+</html>
